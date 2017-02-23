@@ -1,0 +1,113 @@
+<!--
+`slist-card`
+A custom card with student details, details are passed as a json object.
+
+@demo components/slist-card/demo/index.html 
+-->
+<dom-module id="slist-card">
+  <style is="custom-style" include="iron-flex iron-flex-alignment">
+     :host {
+      --cardcolor: #93a5d0;
+    }
+    
+    .student-image {
+      width: 100px;
+      height: 120px;
+      margin: 10px;
+      margin-top: -10px;
+    }
+    
+    .card-details {
+      margin-left: 10px;
+      display: inline-block;
+      margin-top: 3%;
+      position: absolute;
+      top: 7px;
+    }
+    
+    .card-icon {
+      position: absolute;
+      bottom: 5px;
+      right: 20px;
+    }
+    
+    .cardcolor {
+      background-color: var(--cardcolor);
+      margin-top: 10px;
+    }
+
+  </style>
+  <template>
+    <paper-card>
+      <div class="card-content cardcolor">
+        <div style="display:inline-block">
+          <iron-image alt="The Polymer logo." src="{{_imageurl}}" sizing="contain" class="student-image"></iron-image>
+        </div>
+        <div class="card-details">
+          <div>Name : {{_details.studentName}}</div>
+          <div>Roll No : {{_details.rollNo}} </div>
+          <div>Class : {{_details.classDiv}}</div>
+        </div>
+        <slist-icon iconname="refresh" on-tap="refresh" class="card-icon"></slist-icon>
+      </div>
+    </paper-card>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "slist-card",
+    properties: {
+      details: {
+        type: Object
+      },
+      _details: {
+        type: Object,
+        computed: '_getUpdatedDetails(details)'
+      },
+      cardcolor: {
+        type: String,
+        value: '#ff0000'
+      },
+      imageconfig: {
+        type: Object
+      },
+      _imageurl: {
+        type: String
+      }
+    },
+    ready: function () {
+     
+    },
+    refresh: function (e, details) {
+      console.log("refreshed" + this._details.rollNo);
+      if('present'===this._details.status){
+        this._details.status='absent';
+      }
+      else if('absent'===this._details.status)
+      {
+        this._details.status='present';
+      }
+      this.fire('cardRefreshEvent', {
+        studentRollNo: this._details.rollNo,
+        studentStatus: this._details.status
+      });      
+    },
+    _getUpdatedDetails: function (d) {
+      console.log("Detail change ::::", this.details);
+      if (d.status === 'absent') {
+        console.log("changed the style : ", d.status);
+        this.customStyle['--cardcolor'] = '#808080';
+        this.updateStyles();
+      }
+      console.log("image config : ", d.gender);
+      if (d.gender === 'male') {
+        this._imageurl = this.imageconfig.male;
+      } else {
+        this._imageurl = this.imageconfig.female;
+      }
+      return d;
+    }
+  });
+
+</script>
+

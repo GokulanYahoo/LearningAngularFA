@@ -1,0 +1,24 @@
+
+<script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+	<link rel="import" href="../slist-icon.html">
+<style is="custom-style" include="demo-pages-shared-styles"></style>
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<div style="background-color:#ff00ff">
+ <div class="row">
+        <div class="col-xs-12">
+            <slist-toolbar username="{{uName}}" labelname="12345 Present" (route)="routeAbout($event)"></slist-toolbar>
+        </div>
+ </div>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>
+<footer></footer>

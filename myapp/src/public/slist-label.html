@@ -1,0 +1,45 @@
+<!--
+`slist-label`
+A styled custom label, to diplay the message 
+
+@demo  components/slist-label/demo/index.html 
+-->
+<dom-module id="slist-label">
+    <style>
+        .shape {
+            height: 25px;
+            background: #e60000;
+            -moz-border-radius: 100px / 50px;
+            -webkit-border-radius: 100px / 50px;
+            border-radius: 100px / 50px;
+        }
+        
+        .border {
+            border: 2px solid black;
+            margin-top: 0px;
+        }
+        
+        #label {
+            margin-left: 8px;
+            margin-right: 8px;
+            margin-top: 60px;
+            color: white;
+        }
+    </style>
+    <template>
+        <div class="shape border">
+            <iron-label id="label"><b>{{message}}</b></iron-label>
+        </div>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-label",
+        properties: {
+            message: {
+                type: String
+            }
+        },
+        ready: function () {}
+    });
+</script>

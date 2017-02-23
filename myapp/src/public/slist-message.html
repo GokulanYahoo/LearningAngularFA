@@ -1,0 +1,38 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/paper-toast/paper-toast.html">
+<!--
+`slist-message`
+Custom message displayer. Duration is set to 3 sec as default value
+
+@demo  components/slist-message/demo/index.html 
+-->
+<dom-module id="slist-message">
+    <template>
+        <paper-toast id="toast0" text="{{message}}" class="fit-bottom" duration="{{duration}}">
+            <paper-button on-tap="hideToast" class="yellow-button">X</paper-button>
+        </paper-toast>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-message",
+        properties: {
+            message: {
+                type: String
+            },
+            duration: {
+                type: String,
+                value: 3
+            }
+        },
+        showToast : function(){
+         var toast = this.$.toast0;
+          toast.show();
+        },
+        hideToast : function() {
+            var toast = this.$.toast0;
+          toast.hide();
+        },
+        ready: function () {}
+    });
+</script>

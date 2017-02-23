@@ -1,0 +1,55 @@
+<dom-module id="slist-toolbar">
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        .slabel {
+            margin-left: 20px;
+        }
+        paper-toolbar {
+            --paper-toolbar-background: #f4f5fb; /* changes the background to blue*/
+            /*--paper-toolbar-color: #0f0;  changes the foreground color to green */
+        }
+        a{
+       cursor: pointer;
+       cursor: hand;
+   }
+    </style>
+    <template>
+        <paper-toolbar >
+            <slist-icon iconname="menu"></slist-icon>
+            <div class="layout horizontal wrap title">
+                <span style="color:#10c9f2;font-size:30px">S</span><span style="color:grey;font-size:30px">List</span>
+                <slist-label labelname="[[labelname]]" class="slabel"></slist-label>
+            </div>
+            <span style="color:black;font-size:15px">Welcome [[username]]! &nbsp</span>
+            <span style="color:black;font-size:15px"> | </span>
+            <a style="color:black;font-size:15px" on-tap="clickedAbout" >&nbsp About &nbsp</a>
+            <slist-icon iconname="arrow-back" on-tap="clickedLogout"></slist-icon>
+        </paper-toolbar>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-toolbar",
+        properties: {
+            username: {
+                type: String
+            },
+            labelname:{
+                  type: String
+            }
+        },
+        clicked: function () {
+            console.log(this.value);
+        },
+        clickedAbout: function (e, detail) {
+            this.fire('route', {
+                routTo: "about"
+            });
+        },
+        clickedLogout: function (e, detail) {
+            this.fire('route', {
+                routTo: "logout"
+            });
+        },
+        ready: function () {}
+    });
+</script>

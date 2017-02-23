@@ -1,0 +1,21 @@
+<!--
+`slist-loader`
+loader custom element. 
+A multi color loader will display
+
+@demo  components/slist-loader/demo/index.html 
+-->
+<dom-module id="slist-loader">
+    <link rel="import" href="./bower_components/iron-label/iron-label.html">
+    <link rel="import" href="./bower_components/paper-spinner/paper-spinner.html">   
+    <template>
+        <paper-spinner active=false></paper-spinner>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-loader",
+        properties: {},
+        ready: function () {}
+    });
+</script>

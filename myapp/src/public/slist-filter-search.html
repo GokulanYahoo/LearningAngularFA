@@ -1,0 +1,195 @@
+<!--
+`slist-filter-search`
+Filter search custom element,  filterelement is an array and can pass value like '["rollNo", "Name", "division"]'
+
+@demo  components/slist-filter-search/demo/index.html 
+-->
+<dom-module id="slist-filter-search">
+  <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+  <style is="custom-style" include="iron-flex iron-flex-alignment">
+     :host {
+      --colorRed: #ff0000;
+      --colorBlack: #E4E0E0;
+      --colorWhite: #ffffff;
+      --colorgreen: #008b8b;
+      --toolbar-theme: {
+        background-color: #ff0000;
+      };
+    }    
+    .border {
+      border: 0.1px solid var(--colorBlack);
+      margin-top: 2px;
+    }
+    
+    .searchBox {
+      width: 75%;
+      margin-top: 4px;
+    }
+    
+    .filterSelect {
+      color: var(--colorWhite);
+      background-color: var(--colorgreen);
+      padding: .0em .0em .2em .2em;
+    }
+    
+    #messageArea {
+      color: var(--colorWhite);
+      background-color: var(--colorRed);
+      padding: .0em .0em .2em .2em;
+    }
+    
+    .filterDiv {
+      width: 90px;
+      margin-top: 0px;
+    }
+    
+    .searchArea {
+      padding-left: 8px;
+    }
+  </style>
+  <template>
+    <div class="layout vertical  border">
+      <div class="layout horizontal searchArea">
+        <paper-dropdown-menu label="Filter By" class="filterDiv" prefix>
+          <paper-listbox class="dropdown-content" selected="{{_filterSelected}}">
+            <template is="dom-repeat" items="[[filterelement]]">
+              <paper-item id="{{item}}" on-tap="_filterTap">{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-input label="Search" no-label-float bind-value="{{_searchText}}" class="searchBox" value="{{_searchText}}">
+          <slist-icon iconname="add-circle" on-tap="_addFilter" id="addFilter" suffix></slist-icon>
+        </paper-input>
+        <!--<input is="iron-input" type="text" name="search" placeholder="Search.." bind-value="{{searchText}}" class="searchBox" id="searchvalue">-->
+      </div>
+      <template is="dom-if" if="{{_filterAreaFlag}}">
+        <div class="filterSelect vertical">
+          <!---->
+          <!--<template is="dom-repeat" items="[[_labelArray]]">
+            <label id="filterArea">{{item}} </label>
+          </template>-->
+          <!---->
+          <div class="container layout horizontal justified">
+            <div style="width: 80%;margin-top: 5px;">
+              <label id="filterArea">{{_filterText}} </label></div>
+            <div>
+              <slist-icon iconname="close" on-tap="_removeFilter" id="clearFilter"></slist-icon>
+              <paper-tooltip for="clearFilter" offset="0">Clear filter</paper-tooltip>
+            </div>
+            <div>
+              <slist-icon iconname="search" class="searchButton" id="searchBtn" on-tap="_searchTap"></slist-icon>
+              <paper-tooltip for="searchBtn" offset="0">Search</paper-tooltip>
+            </div>
+          </div>
+          <div class="horizontal end-justified layout">
+            <div>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template is="dom-if" if="{{_messageAreaFlag}}">
+        <label id="messageArea">Please fill all the fields</label>
+      </template>
+    </div>
+    <paper-tooltip for="addFilter" offset="0">Add filter</paper-tooltip>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "slist-filter-search",
+    properties: {
+      filterelement: {
+        type: Array
+      },
+      _selectedfilter: {
+        type: Array,
+        value: []
+      },
+      _searchArray: {
+        type: Object,
+        value: {}
+      },
+      _filterText: {
+        type: String
+      },
+      _searchText: {
+        type: String
+      },
+      _messageAreaFlag: {
+        type: Boolean,
+        value: false
+      },
+      _filterAreaFlag: {
+        type: Boolean,
+        value: false
+      },
+      _labelArray: {
+        type: Array,
+        value: []
+      },
+      _filterSelected: {
+        type: String
+      }
+    },
+    //fire a event with the search data aa Object
+    _searchTap: function (e, detail) {
+      this.fire('searchEvent', {
+        searchFilter: this._searchArray
+      });
+      console.log("Fired value : ", this._searchArray);
+    },
+    //adding filter and setting filter data as Object
+    _addFilter: function (e, detail) {
+
+      if (this._selectedfilter && this._selectedfilter.length > 0 && this._searchText) {
+        this.set('_searchArray.' + [this._selectedfilter], this._searchText);
+        this._filterText = this._objectToString(this._searchArray)
+        console.log("filterTap taped" + this._filterText);
+        this._messageAreaFlag = false;
+        this._filterAreaFlag = true;
+      } else {
+        this._messageAreaFlag = true;
+        this._filterAreaFlag = false;
+      }
+
+    },
+    //Adding filter from drop down menu
+    _filterTap: function (e, details) {
+      var args = e.target.getAttribute('id')
+      this._searchText = "";
+      this._selectedfilter = [];
+      this._selectedfilter[0] = args;
+      console.log("filterTap taped" + this._selectedfilter);
+    },
+    //Clearing all the filter
+    _removeFilter: function (e, detail) {
+      this._selectedfilter = [];
+      this._searchArray = {};
+      this._filterText = "";
+      this._filterAreaFlag = false;
+      this._searchText = "";
+      this._filterSelected = -1;
+    },
+    //Converts the given object to string
+    _objectToString: function (obj) {
+
+      var filterText = "";
+      Object.keys(obj).map(function (key) {
+        if (filterText) {
+          filterText = filterText + " , " + key + " : " + obj[key];
+        } else {
+          filterText = key + " : " + obj[key];
+        }
+        // console.log("String : " + filterText);
+
+      });
+      return filterText;
+    },
+    ready: function () {
+      //document.getElementById('filterArea').style.display = "none";
+      // this.filterElement = ["rollNo", "Name", "division"]
+      // console.log(this.filterelement);
+      // document.getElementById('filterArea').style.display = "none";
+    }
+  });
+</script>

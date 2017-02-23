@@ -1,0 +1,24 @@
+a {
+    cursor: pointer;
+}
+
+.help-block {
+    font-size: 12px;
+}
+
+nav {
+text-align: center;
+margin: 20px 0 0 ;
+ padding: 10px 40px;
+ margin-right: 5%;
+  margin-left: 5%;
+}
+
+.loginDiv {
+    border: 1px solid red;
+    margin-top: 100px;
+    margin-bottom: 600px;
+    margin-right: 150px;
+    margin-left: 280px;
+    background-color: lightblue;
+}

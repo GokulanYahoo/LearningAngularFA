@@ -1,0 +1,45 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<!--
+`slist-button`
+Sbutton custom element
+
+@demo demo/index.html 
+-->
+<dom-module id="slist-button">
+    <style>
+        paper-button {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #10c9f2;
+           
+        }
+        
+        span {
+            color: white;
+        }
+    </style>
+    <template>
+        <!--try using on-tap instead of onclick-->
+        <paper-button toggles raised class="green" on-tap="buttonTap"><span>{{name}}</span></paper-button>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-button",
+        properties: {
+            name: {
+                type: String
+            }
+        },
+        buttonTap: function (e, detail) {
+            this.fire('buttonfire', {
+                buttonEvent: true
+            });
+        },
+        ready: function () {}
+    });
+
+    
+</script>

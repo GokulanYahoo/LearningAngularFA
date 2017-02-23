@@ -1,0 +1,124 @@
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+<link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../slist-icon.html">
+<link rel="import" href="../slist-card.html">
+<link rel="import" href="../slist-filter-search.html">
+<link rel="import" href="../slist-loader.html">
+<style is="custom-style" include="demo-pages-shared-styles"></style>
+<style>
+  .Row {
+    display: table;
+    width: 100%;
+    /*Optional*/
+    table-layout: fixed;
+    /*Optional*/
+    border-spacing: 10px;
+    /*Optional*/
+  }
+  
+  .divRows {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .Column {
+    display: table-cell;
+    background-color: white;
+    /*Optional*/
+  }
+  
+  .marginClass {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .text-center {
+    width: 10%;
+    margin: 0 auto;
+    height: 31px;
+  }
+  
+  .box {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+  }
+  
+  .present {
+    background-color: #93a5d0;
+  }
+  
+  .absent {
+    background-color: #808080;
+  }
+
+</style>
+<!--<div class="divRows">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Absent</a></li>
+          <li><a href="#">Present</a></li>
+        </ul>
+      </div>
+      <input type="text" class="form-control" aria-label="..." [(ngModel)]="typeText">
+    </div>
+  </div>
+</div>-->
+<div class="col-xs-12">
+  <div class="divRows">
+    <div class="col-xs-6">
+      <slist-filter-search filterelement='["RollNo", "Name", "Division"]'></slist-filter-search>
+      <div>
+      </div>
+    </div>
+    <div class="col-xs-2" style="margin-top: 5px;">
+      <div>
+        <div class="box present"></div> <span>Present</span>
+      </div>
+      <div style="margin-top: 10px;">
+        <div class="box absent"></div><span>Absent</span>
+      </div>
+    </div>
+    <div class="row marginClass" #sCard>
+      <div class="col-xs-12">
+        <div *ngFor="let item of sLists">
+          <div class="">
+            <div class="col-xs-3" style="align:left">
+              <!--<img src="./img/male.png" alt="Avatar" style="width:80%">-->
+              <slist-card *ngIf="flag" [details]="item" (cardRefreshEvent)="_updateAttendance($event)" imageconfig='{"male":"img/male.png","female":"img/female.png"}'></slist-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row full-width">
+      <div class="text-center">
+        <slist-button name="Load More" (buttonfire)="loadMore($event)" *ngIf="loadBtnLoader"></slist-button>
+        <slist-loader spincolor="orange" *ngIf="loaderFlag"></slist-loader>
+      </div>
+    </div>
+  </div>

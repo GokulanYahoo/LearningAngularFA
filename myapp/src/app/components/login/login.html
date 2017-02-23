@@ -1,0 +1,47 @@
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../app.css">
+<style is="custom-style" include="demo-pages-shared-styles"></style>
+<link rel="import" href="./bower_components/polymer/polymer.html">
+
+<div class="loginDiv" align="center" >
+    <br><br>
+	<!--<div class="alert alert-warning" [hidden]="!validation">
+  	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Invalid credentials!</div>-->
+    <h1 class="lHeading"><span style="color:#10c9f2">S</span><span style="color:grey">List</span></h1>
+
+    
+	<!-- Main Form -->
+	<div class="login-form-1">
+		<form id="login-form" class="text-left" (ngSubmit)="login(name,pass)">
+			<div class="login-form-main-message"></div>
+			<div class="main-login-form">
+				<div class="login-group">
+					<div class="form-group loginTxt">
+						<!--<label for="lg_username " >USERNAME</label>-->
+						<!--<input type="text" class="form-control" [(ngModel)]="name" id="lg_username" name="lg_username" placeholder="username" required="required">-->
+						<slist-input #username stype="String" slabel="USERNAME" slngt="12" [svalue]="suserName"></slist-input>
+					</div>
+					<div class="form-group loginTxt">
+						<!--<label for="lg_password" >PASSWORD</label>-->
+						<!--<input type="password" class="form-control"  [(ngModel)]="pass" id="lg_password" name="lg_password" placeholder="password" required="required">-->
+						<slist-input #password stype="password" slabel="PASSWORD" slngt="10" [svalue]="spassword"></slist-input>
+					</div>
+				</div>
+				<div class="loginbtn"> 
+					<slist-button name="Sign in"  (buttonfire)="login($event)"></slist-button>
+				</div>
+				
+			</div>
+			
+		</form>
+	</div>
+	<slist-message message="Invalid Credentials" duration="0" #toastid ></slist-message>
+
+
+
+</div>

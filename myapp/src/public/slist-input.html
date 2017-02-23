@@ -1,0 +1,37 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+
+<dom-module id="slist-input">
+    <template>
+        <paper-input-container>
+            <label>{{slabel}}</label>
+            <input is="iron-input" type="{{stype}}" maxlength="{{slngt}}" bind-value="{{svalue}}" on-value-changed="buttonTap"/>
+        </paper-input-container>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "slist-input",
+        properties: {
+            slngt:{
+                type:String
+            },
+            slabel: {
+                type: String
+            },
+            stype :{
+                 type: String
+            },
+            svalue :{
+                 type:String,
+                 value:''
+            }          
+        },
+        buttonTap: function (e, detail) {
+            if( e.keycode === 13 || e.which === 13){
+                this.fire('buttonfire', {
+                    buttonEvent: true
+                });
+            }
+        } 
+    });
+</script>
